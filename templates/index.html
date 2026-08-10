@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Performance Predictor</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+
+<body>
+
+<div class="page">
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-text">
+
+            <p class="small-title">
+                ACADEMIC PERFORMANCE ANALYSIS
+            </p>
+
+            <h1>
+                Student Performance
+                <span>Intelligence</span>
+            </h1>
+
+            <p class="hero-description">
+                Predict student performance using academic
+                data and machine learning.
+            </p>
+
+        </div>
+
+
+        <div class="hero-orb">
+
+            <div class="orb">
+                ✦
+            </div>
+
+            <div class="orbit orbit-one"></div>
+
+            <div class="orbit orbit-two"></div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- MAIN -->
+
+    <main>
+
+
+        <!-- INPUT -->
+
+        <section class="input-area">
+
+            <div class="section-heading">
+
+                <div>
+                    <p>01</p>
+                    <h2>Student Metrics</h2>
+                </div>
+
+                <span>INPUT</span>
+
+            </div>
+
+
+            <!-- STUDY TIME -->
+
+            <div class="metric">
+
+                <div class="metric-top">
+
+                    <strong>
+                        Study Time
+                    </strong>
+
+                    <span>
+                        HOURS
+                    </span>
+
+                </div>
+
+                <input
+                    type="number"
+                    name="studytime"
+                    form="prediction-form"
+                    step="0.1"
+                    value="2"
+                    required
+                >
+
+            </div>
+
+
+            <!-- FAILURES -->
+
+            <div class="metric">
+
+                <div class="metric-top">
+
+                    <strong>
+                        Previous Failures
+                    </strong>
+
+                    <span>
+                        COUNT
+                    </span>
+
+                </div>
+
+                <input
+                    type="number"
+                    name="failures"
+                    form="prediction-form"
+                    min="0"
+                    max="3"
+                    value="0"
+                    required
+                >
+
+            </div>
+
+
+            <!-- ABSENCES -->
+
+            <div class="metric">
+
+                <div class="metric-top">
+
+                    <strong>
+                        Absences
+                    </strong>
+
+                    <span>
+                        DAYS
+                    </span>
+
+                </div>
+
+                <input
+                    type="number"
+                    name="absences"
+                    form="prediction-form"
+                    min="0"
+                    max="75"
+                    value="5"
+                    required
+                >
+
+            </div>
+
+
+            <!-- GRADES -->
+
+            <div class="grade-row">
+
+
+                <div class="grade-box">
+
+                    <div class="grade-title">
+
+                        <strong>G1</strong>
+
+                        <span>
+                            FIRST PERIOD
+                        </span>
+
+                    </div>
+
+                    <input
+                        type="number"
+                        name="G1"
+                        form="prediction-form"
+                        min="0"
+                        max="20"
+                        step="0.1"
+                        value="10"
+                        required
+                    >
+
+                    <small>
+                        Grade range: 0 - 20
+                    </small>
+
+                </div>
+
+
+
+                <div class="grade-box">
+
+                    <div class="grade-title">
+
+                        <strong>G2</strong>
+
+                        <span>
+                            SECOND PERIOD
+                        </span>
+
+                    </div>
+
+                    <input
+                        type="number"
+                        name="G2"
+                        form="prediction-form"
+                        min="0"
+                        max="20"
+                        step="0.1"
+                        value="10"
+                        required
+                    >
+
+                    <small>
+                        Grade range: 0 - 20
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- BUTTON -->
+
+            <form
+                id="prediction-form"
+                method="POST"
+            >
+
+                <button type="submit">
+                    Predict Performance
+                    <span>→</span>
+                </button>
+
+            </form>
+
+        </section>
+
+
+
+        <!-- RESULT -->
+
+        <section class="prediction-area">
+
+            <div class="section-heading">
+
+                <div>
+                    <p>02</p>
+                    <h2>Prediction Result</h2>
+                </div>
+
+                <span>AI OUTPUT</span>
+
+            </div>
+
+
+            <div class="prediction-panel">
+
+
+                {% if prediction %}
+
+
+                    {% if prediction == "Good" %}
+
+                        <div class="result-icon good">
+                            ↑
+                        </div>
+
+                        <p class="result-label">
+                            PREDICTED PERFORMANCE
+                        </p>
+
+                        <h3 class="good-text">
+                            GOOD
+                        </h3>
+
+                        <p class="result-message">
+                            Strong academic performance is
+                            predicted from the provided data.
+                        </p>
+
+
+                    {% elif prediction == "Average" %}
+
+                        <div class="result-icon average">
+                            →
+                        </div>
+
+                        <p class="result-label">
+                            PREDICTED PERFORMANCE
+                        </p>
+
+                        <h3 class="average-text">
+                            AVERAGE
+                        </h3>
+
+                        <p class="result-message">
+                            The model predicts an average
+                            level of academic performance.
+                        </p>
+
+
+                    {% else %}
+
+                        <div class="result-icon poor">
+                            ↓
+                        </div>
+
+                        <p class="result-label">
+                            PREDICTED PERFORMANCE
+                        </p>
+
+                        <h3 class="poor-text">
+                            POOR
+                        </h3>
+
+                        <p class="result-message">
+                            Additional academic support may
+                            help improve the expected result.
+                        </p>
+
+                    {% endif %}
+
+
+                {% else %}
+
+                    <div class="waiting">
+
+                        <div class="waiting-icon">
+                            ✦
+                        </div>
+
+                        <p>
+                            READY FOR ANALYSIS
+                        </p>
+
+                        <span>
+                            Enter student information and
+                            predict the performance.
+                        </span>
+
+                    </div>
+
+                {% endif %}
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <span>
+            STUDENT PERFORMANCE PREDICTOR
+        </span>
+
+        <span>
+            MACHINE LEARNING
+        </span>
+
+    </footer>
+
+
+</div>
+
+</body>
+
+</html>
